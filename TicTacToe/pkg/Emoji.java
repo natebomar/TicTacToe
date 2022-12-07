@@ -185,14 +185,14 @@ public class Emoji
 	
 	// added by Neato 10/21/18
 
-	public boolean crash(Car v)
-	{
-		if(Ethan.contains(v.getBoundBox()))
-		{
-			return true;
-		}
-		return false;
-	}
+	// public boolean crash(Car v)
+	// {
+	// 	if(Ethan.contains(v.getBoundBox()))
+	// 	{
+	// 		return true;
+	// 	}
+	// 	return false;
+	// }
    
 
    
