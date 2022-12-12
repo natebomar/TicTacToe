@@ -1,3 +1,4 @@
+import pkg.*;
 class GameDriver {
   private GameState state;
 
@@ -16,9 +17,15 @@ class GameDriver {
     }
     // state.getWinner();
     if(state.getWinner() == null){
+        Text tie = new Text(25,200, "IT'S A DRAW");
+        tie.grow(20, 20);
+        tie.draw();
         System.out.print("It's a draw!");
     }
     else{
+        Text win = new Text(25, 200, state.getWinner().getName()+" WINS!");
+        win.grow(20, 20);
+        win.draw();
         System.out.println(state.getWinner().getName()+" is the winner");
     }
   }

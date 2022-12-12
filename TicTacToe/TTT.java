@@ -8,6 +8,7 @@ public class TTT implements GameState {
   private ArrayList<String> moves;
   private int playerCoin;
   private Player winner;
+  private Rectangle[][] rect_grid;
 
   public TTT() {
     grid = new String[3][3];
@@ -32,6 +33,12 @@ public class TTT implements GameState {
     moves.add("3,2");
     moves.add("3,3");
     playerCoin = 1;
+    rect_grid = new Rectangle[3][3];
+    for(int row = 0; row < rect_grid.length; row++){
+      for(int col = 0; col < rect_grid[row].length; col++){
+        rect_grid[row][col] = new Rectangle(10+ row * 50,10 + col * 50, 50, 50);
+      }
+    }
   }
 
   public boolean isGameOver(){
@@ -77,15 +84,15 @@ public class TTT implements GameState {
       int comma_pos = move.indexOf(",");
       String row_move = move.substring(0, comma_pos);
       String col_move = move.substring(comma_pos + 1, move.length());
-      int r = Integer.parseInt(row_move);
-      int c = Integer.parseInt(col_move);
-      System.out.println(r + " " + c);
+      int r = Integer.parseInt(row_move) - 1;
+      int c = Integer.parseInt(col_move) - 1;
+      // System.out.println(r + " " + c);
+      drawMove(r, c);
       if (getCurrentPlayer().getName().equals("Player 1(X)")) {
-        grid[r - 1][c - 1] = "X";
+        grid[r][c] = "X";
       } else {
-        grid[r - 1][c - 1] = "O";
+        grid[r][c] = "O";
       }
-
     // removes move from arraylist (adrianna)
     int indexOfMove = -1;
     for (int i = 0; i < moves.size(); i++) {
@@ -139,6 +146,29 @@ public class TTT implements GameState {
       }
       template += "\n";
     }
+    drawBoard();
     return template;
+  }
+  public void drawBoard(){
+    for(int r = 0; r < rect_grid.length; r++){
+      for(int c =0; c < rect_grid[r].length; c++){
+        rect_grid[r][c].draw();
+      }
+    }
+  }
+  public void drawMove(int r, int c){
+    if (getCurrentPlayer().getName().equals("Player 1(X)")) {
+      // Should draw an X at desired position rect_grid[][]
+      Line l1 = new Line(rect_grid[r][c].getX(), rect_grid[r][c].getY(),rect_grid[r][c].getX()+50, rect_grid[r][c].getY()+50);
+      Line l2 = new Line(rect_grid[r][c].getX()+50, rect_grid[r][c].getY(),rect_grid[r][c].getX(), rect_grid[r][c].getY()+50);
+      l1.draw();
+      l2.draw();
+    } 
+    else {
+      // Draw a circle at desired position rect_grid[][]
+      Ellipse p2 = new Ellipse(rect_grid[r][c].getX(), rect_grid[r][c].getY(), 50, 50);
+      p2.setColor(Color.RED);
+      p2.fill();
+    }
   }
 }
